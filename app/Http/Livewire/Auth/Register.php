@@ -13,18 +13,24 @@ class Register extends Component
     public $password = '';
     public $passwordConfirmation = '';
 
+    protected $rules = [
+        'email' => 'required|email|unique:users',
+        'password' => 'required|min:6|same:passwordConfirmation',
+    ];
+
+    public function updatedEmail()
+    {
+        $this->validate(['email' => 'unique:users']);
+    }
+
     public function register()
     {
-        $data = $this->validate([
-            'name' => 'required|max:20',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|same:passwordConfirmation'
-        ]);
+        $this->validate();
 
         $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => Hash::make($this->password),
         ]);
 
         auth()->login($user);
@@ -34,6 +40,7 @@ class Register extends Component
 
     public function render()
     {
-        return view('livewire.auth.register');
+        return view('livewire.auth.register')
+            ->layout('layouts.auth');
     }
 }

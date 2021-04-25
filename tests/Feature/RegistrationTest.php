@@ -13,6 +13,12 @@ class RegistrationTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    function registration_page_contains_livewire_component()
+    {
+        $this->get('/register')->assertSeeLivewire('auth.register');
+    }
+
+    /** @test */
     function can_register()
     {
         Livewire::test('auth.register')
@@ -66,6 +72,22 @@ class RegistrationTest extends TestCase
             ->set('password', 'password')
             ->set('passwordConfirmation', 'password')
             ->call('register')
+            ->assertHasErrors(['email' => 'unique']);
+    }
+
+    /** @test */
+    function see_email_hasnt_already_been_taken_validation_message_as_user_types()
+    {
+        User::create([
+            'name' => 'fabio',
+            'email' => 'fabioa@example.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        Livewire::test('auth.register')
+            ->set('email', 'fabio@example.com')
+            ->assertHasNoErrors()
+            ->set('email', 'fabioa@example.com')
             ->assertHasErrors(['email' => 'unique']);
     }
 
