@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Hash;
 
 class Register extends Component
 {
-    public $name = '';
     public $email = '';
     public $password = '';
     public $passwordConfirmation = '';
@@ -28,7 +27,6 @@ class Register extends Component
         $this->validate();
 
         $user = User::create([
-            'name' => $this->name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
         ]);

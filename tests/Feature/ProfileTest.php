@@ -90,6 +90,35 @@ class ProfileTest extends TestCase
     }
 
     /** @test */
+    function message_is_shown_on_save_first_option()
+    {
+        $user = User::factory()->create([
+            'username' => 'foo',
+            'about' => 'bar',
+        ]);
+
+        Livewire::actingAs($user)
+            ->test('profile')
+            ->assertDontSee('Profile saved!')
+            ->call('save')
+            ->assertSee('Profile saved!');
+    }
+
+    /** @test */
+    function message_is_shown_on_save_second_option()
+    {
+        $user = User::factory()->create([
+            'username' => 'foo',
+            'about' => 'bar',
+        ]);
+
+        Livewire::actingAs($user)
+            ->test('profile')
+            ->call('save')
+            ->assertDispatchedBrowserEvent('notify');
+    }
+
+    /** @test */
     function username_must_be_less_than_24_characters()
     {
         $user = User::factory()->create();
