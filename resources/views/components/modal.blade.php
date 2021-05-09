@@ -1,11 +1,3 @@
-{{-- -- Important note:
---
--- This template is based on an example from Tailwind UI, and is used here with permission from Tailwind Labs
--- for educational purposes only. Please do not use this template in your own projects without purchasing a
--- Tailwind UI license, or they’ll have to tighten up the licensing and you’ll ruin the fun for everyone.
---
--- Purchase here: https://tailwindui.com/ --}}
-
 @props(['id', 'maxWidth'])
 
 @php
@@ -49,8 +41,8 @@ switch ($maxWidth ?? '2xl') {
     }" x-init="$watch('show', value => value && setTimeout(autofocus, 50))" x-on:close.stop="show = false"
     x-on:keydown.escape.window="show = false" x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
     x-on:keydown.shift.tab.prevent="prevFocusable().focus()" x-show="show" id="{{ $id }}"
-    class="fixed top-0 inset-x-0 px-4 pt-6 z-50 sm:px-0 sm:flex sm:items-top sm:justify-center" style="display: none;">
-    <div x-show="show" class="fixed inset-0 transform transition-all" x-on:click="show = false"
+    class="fixed inset-x-0 top-0 z-50 px-4 pt-6 sm:px-0 sm:flex sm:items-top sm:justify-center" style="display: none;">
+    <div x-show="show" class="fixed inset-0 transition-all transform" x-on:click="show = false"
         x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200"
         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
