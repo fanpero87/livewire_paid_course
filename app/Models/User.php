@@ -37,6 +37,7 @@ class User extends Authenticatable
     public function avatarUrl()
     {
         // return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email)));
+        // return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim('fanpero87@gmail.com')));
 
         return $this->avatar
             ? Storage::disk('avatars')->url($this->avatar)

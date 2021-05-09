@@ -40,29 +40,33 @@
                 @endif
             </div>
 
-            <x-input.group label="Username" for="username" :error="$errors->first('user.username')">
+            <x-input.group label="Username" for="username" :error="$errors->first('username')">
                 <x-input.text wire:model="user.username" id="username" leading-add-on="surge.com/" />
             </x-input.group>
 
-            <x-input.group label="Birthday" for="birthday" :error="$errors->first('user.birthday')">
-                <x-input.date wire:model="user.birthday" id="birthday" placeholder="MM/DD/YYYY" />
+            <x-input.group label="Birthday" for="birthday" :error="$errors->first('birthday')">
+                <x-input.date wire:model="user.birthday" id="birthday" placeholder="YYYY/MM/DD" />
             </x-input.group>
 
-            <x-input.group label="About" for="about" :error="$errors->first('user.about')"
+            <x-input.group label="About" for="about" :error="$errors->first('about')"
                 help-text="Write a few sentances about yourself.">
                 <x-input.rich-text wire:model.defer="user.about" id="about" />
             </x-input.group>
 
             <x-input.group label="Photo" for="photo" :error="$errors->first('upload')">
-                <div class="flex items-center">
+                <x-input.file-upload wire:model="upload" id="photo">
                     <span class="w-12 h-12 overflow-hidden bg-gray-100 rounded-full">
-                        <img src="{{ auth()->user()->avatarUrl() }}" alt="Profile Photo">
+                        @if ($upload)
+                            <img src="{{ $upload->temporaryUrl() }}" alt="Profile Photo">
+                        @else
+                            <img src="{{ auth()->user()->avatarUrl() }}" alt="Profile Photo">
+                        @endif
                     </span>
-                </div>
-                <span class="ml-5 rounded-md shadow-sm">
-                    <input type="file" wire:model="upload">
-                </span>
+                </x-input.file-upload>
+            </x-input.group>
 
+            <x-input.group label="Filepond" for="photo" :error="$errors->first('upload')">
+                <x-input.filepond wire:model="files" multiple />
             </x-input.group>
         </div>
 
