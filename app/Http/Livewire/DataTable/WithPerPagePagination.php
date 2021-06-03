@@ -15,6 +15,7 @@ trait WithPerPagePagination
         $this->perPage = session()->get('perPage', $this->perPage);
     }
 
+    // save the option selected on the session
     public function updatedPerPage($value)
     {
         session()->put('perPage', $value);
