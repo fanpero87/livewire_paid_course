@@ -1,7 +1,7 @@
-<div>
-    <ul class="bg-white divide-y rounded shadow">
-        @foreach ($things as $thing )
-            <li wire:key="{{ $thing['id'] }}" class="w-64 p-4">
+<div class="w-1/3">
+    <ul class="text-center bg-white divide-y rounded shadow">
+        @foreach ($things as $thing)
+            <li animate-move wire:key="{{ $thing['id'] }}" class="p-4">
                 {{ $thing['title'] }}
             </li>
         @endforeach
